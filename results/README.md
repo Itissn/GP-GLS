@@ -2,7 +2,7 @@
 
 ## Calculation
 
-For a recorded objective value `v` and best-known value `b`, gap (%) is `100 * (v - b) / b`. The analysis averages the 15 recorded GP-GLS objective columns for each instance, then averages instance-level percentage gaps across the 79 rows. This gives every instance equal weight. The KGLS summary uses the same instance-level convention.
+For a recorded objective value `v` and best-known value `b`, gap (%) is `100 * (v - b) / b`. The analysis averages the 15 recorded GP-GLS objective columns for each instance, then averages instance-level percentage gaps across the 79 rows. This gives every instance equal weight. The KGLS summary uses the same instance-level convention. In the instance and reconciliation CSV files the gap columns hold fractions. Multiply by 100 to compare them with the percentages in the chart and JSON summary.
 
 All 79 stored GP-GLS instance means agree with the 15 recorded objective values within the script's floating-point tolerance. The issues found are in footer summaries, not those per-instance means.
 

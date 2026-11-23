@@ -4,7 +4,13 @@
   "recorded_result_columns": 15,
   "gpgls_mean_gap_pct": 0.650987931990699,
   "kgls_mean_gap_pct": 0.6923656053453463,
+  "kgls_minus_gpgls_gap_percentage_points": 0.04137767335464726,
+  "gpgls_paired_gap": {
+    "lower": 62,
+    "equal": 0,
+    "higher": 17
+  },
   "reconciliation_issue_count": 10,
   "algorithm_rerun": false,
-  "scope": "Descriptive summary of archived values, not a controlled rerun or significance claim."
+  "scope": "Descriptive comparison of archived values; solver budgets and seeds are undocumented."
 }

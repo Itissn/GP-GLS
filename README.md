@@ -1,57 +1,41 @@
-# GP-GLS — Genetic Programming for Search Guidance
+# GP-GLS · Genetic programming for vehicle routing
 
-Investigate whether automatically evolved utility functions can improve guided local search for large-scale vehicle routing.
+Guided local search chooses parts of a route to penalise so that it can explore different solutions. This research investigates whether genetic programming can learn utility functions for that choice. This repository contains the archived results and the Python analysis used to inspect them. [Research overview](https://itissn.github.io/research-projects.html)
 
-## Research problem and objective
+## Objective and method
 
-Guided local search needs a rule for choosing which features of a current solution to penalise. That rule is a search-design decision: its definition affects where the search goes next. The design question motivating this work is whether useful guidance can be evolved rather than supplied only as a fixed, manually designed rule.
+Compare route quality from the evolved guidance functions with the workbook’s KGLS(10) reference. For each benchmark instance, the analysis averages its 15 recorded GP-GLS objectives, computes both methods’ gaps to the same best-known objective and gives each instance equal weight.
 
-The research objective is to **evolve utility functions with genetic programming and assess the resulting routing-solution quality against a reference guided-local-search method**. The [research overview](https://itissn.github.io/research-projects.html) describes the broader project. This repository preserves its results artifact and analysis; it does not contain the complete training or solver implementation.
+## Results
 
-## Method and the role of this repository
-
-The research approach uses genetic programming to construct utility functions from instance-, solution- and edge-level features, which then guide local search.
-
-The analysis included here examines the archived outcomes: read the workbook, recompute each objective's percentage gap to its recorded best-known value, aggregate consistently across instances, and plot the comparison. Keeping the original workbook separate from derived tables makes the numerical evidence inspectable without altering its source.
-
-## Recorded results
-
-The workbook contains **79 instances** and **15 recorded GP-GLS result columns**. Recalculation from instance rows gives:
-
-| Recorded method | Mean gap to the workbook's best-known value |
+| Recorded comparison | Recomputed value |
 |---|---:|
-| GP-GLS, averaging its 15 recorded values per instance | 0.6510% |
-| KGLS | 0.6924% |
+| GP-GLS mean gap to best-known objective | 0.6510% |
+| KGLS(10) mean gap | 0.6924% |
+| Difference between the means | 0.0414 percentage points |
+| Instances with a lower / equal / higher GP-GLS gap | 62 / 0 / 17 |
 
-Lower gap is better. GP-GLS has the lower mean in this archived table, with each instance weighted equally. This descriptive comparison does not establish statistical significance or general superiority under matched computational budgets.
+Lower gaps indicate shorter routes relative to the recorded best-known objective. Each point below represents one instance. Points below the diagonal favour GP-GLS.
 
-![Per-instance gaps recalculated from the archived workbook](assets/benchmark_results.png)
+![Per-instance comparison with the equal-gap diagonal](results/derived/benchmark_results.png)
 
-Evidence: [original workbook](results/Final%20Result.xlsx), [analysis script](analysis/summarise_results.py), [derived summary](results/derived/summary.json) and [reconciliation notes](docs/results_notes.md). Ten footer summaries differ from full-row recalculation; the original file is preserved and the displayed results use the instance rows.
+The audit found ten discrepancies in the archived footer. The table and chart use all 79 instance rows. [Original workbook](results/Final%20Result.xlsx) · [Audit and formulas](results/README.md) · [Machine-readable results](results/derived/summary.json)
 
-## Limits of the available evidence
+## Limits
 
-The repository does not establish seeds, complete execution budgets or all experimental settings. The 15 result columns should not be assumed to be independent random-seed trials. Reproducing the solver and making stronger comparative claims would require the implementation, experiment configuration and controlled repeated runs. The added Python analysis reproduces the summaries, not the original optimisation experiments.
+The workbook gives 15 GP-GLS values per instance. Seeds, execution budgets and a runnable solver are unavailable in this archive. These results describe the recorded instances. A controlled comparison would require matching budgets, seed information and repeated solver runs.
 
-**Research and analysis:** Genetic programming · Guided local search · Vehicle routing · Python · Matplotlib
-
-## Reproduce the analysis
+## Reproduce
 
 ```bash
 python -m pip install -r requirements.txt
 python analysis/summarise_results.py
 ```
 
-This reads the original workbook, recomputes gaps and per-instance means, checks stored summaries and writes the figure and derived tables. It does not rerun GP-GLS.
+The [analysis script](analysis/summarise_results.py) reads the original workbook and writes the chart, instance table, discrepancies and source hash to [results/derived](results/derived/). Use `--output-dir PATH` to generate a second copy for comparison.
 
-## Repository guide
+**Skills demonstrated**
 
-| Location | Responsibility |
-|---|---|
-| `results/Final Result.xlsx` | Original workbook, preserved without edits |
-| `analysis/summarise_results.py` | Reproducible post-processing |
-| `results/derived/` | Instance summary, reconciliation details and provenance hash |
-| `assets/benchmark_results.png` | Figure generated from recorded values |
-| `docs/results_notes.md` | Formula, scope and reconciliation notes |
-
-The analysis identifies ten differences between stored footer values and a full-row recalculation. See [results notes](docs/results_notes.md) for the affected formulas and the distinction between source and derived results.
+- Genetic programming and guided local search for vehicle routing
+- Python and openpyxl for schema checks, formula reconciliation and paired analysis
+- Matplotlib for instance-level comparisons
