@@ -1,0 +1,10 @@
+{
+  "source_sha256": "fa57ada7813064216c3c2ddfb2fee8c9d601606da500e3cc7c6f12b1d3b6e46e",
+  "instances": 79,
+  "recorded_result_columns": 15,
+  "gpgls_mean_gap_pct": 0.650987931990699,
+  "kgls_mean_gap_pct": 0.6923656053453463,
+  "reconciliation_issue_count": 10,
+  "algorithm_rerun": false,
+  "scope": "Descriptive summary of archived values, not a controlled rerun or significance claim."
+}
